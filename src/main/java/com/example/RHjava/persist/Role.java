@@ -1,0 +1,8 @@
+package com.example.RHjava.persist;
+
+
+
+public enum Role{
+	DIRECTEUR_GENRALE,DIRECTEUR_TECHNIQUE,CHEF_DEPARTEMENT, ADMINISTRATEUR, INGENIEUR, TECHNICIEN
+}
+

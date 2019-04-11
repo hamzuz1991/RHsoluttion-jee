@@ -30,7 +30,7 @@ public class Employe implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy  = GenerationType.IDENTITY)
-	private Integer id_emplye ;
+	private Long id_emplye ;
 	
 	@Column (name = "nom")
 	private String nom_employe ;
@@ -45,10 +45,12 @@ public class Employe implements Serializable {
 	private int etat;
 	
 	@Column (name ="role")
-	private String role ;
+	private Role role ;
 	
 	@OneToOne( cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
 	private Cantrat cantrat;
+	@OneToOne
+	private Departement chef_dep ;
 	
 	@ManyToMany(mappedBy="employes" , cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<Departement>  departements ;
@@ -56,10 +58,12 @@ public class Employe implements Serializable {
 	@OneToMany(mappedBy="employe" , cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<Timesheet> timesheets ;
 	
-	public Integer getId_emplye() {
+	private int nbre_jour_conger_autoriser ;
+	
+	public Long getId_emplye() {
 		return id_emplye;
 	}
-	public void setId_emplye(Integer id_emplye) {
+	public void setId_emplye(Long id_emplye) {
 		this.id_emplye = id_emplye;
 	}
 	public String getNom_employe() {
@@ -88,7 +92,7 @@ public class Employe implements Serializable {
 	}
 
 		
-public Employe(String nom_employe, String prenom, String email, int etat, String  role) {
+public Employe(String nom_employe, String prenom, String email, int etat, Role role) {
 	super();
 	this.nom_employe = nom_employe;
 	this.prenom = prenom;
@@ -107,14 +111,30 @@ public void setCantrat(Cantrat cantrat) {
 	this.cantrat = cantrat;
 }
 
-public String getRole() {
+
+public Role getRole() {
 	return role;
 }
-public void setRole(String role) {
+public void setRole(Role role) {
 	this.role = role;
+}
+public int getEtat() {
+	return etat;
 }
 public void adddepartement(Departement departement ,Employe employe) {
 	departements.add(departement);
 	departement.employes.add(this);
+}
+public int getNbre_jour_conger_autoriser() {
+	return nbre_jour_conger_autoriser;
+}
+public void setNbre_jour_conger_autoriser(int nbre_jour_conger_autoriser) {
+	this.nbre_jour_conger_autoriser = nbre_jour_conger_autoriser;
+}
+public Departement getChef_dep() {
+	return chef_dep;
+}
+public void setChef_dep(Departement chef_dep) {
+	this.chef_dep = chef_dep;
 }
 }
