@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 @Entity
 @Table(name = "t_departement")
@@ -35,8 +40,9 @@ public class Departement implements Serializable {
 	private String nom_dep;
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private Employe chef_departement;
-
+	
 	@ManyToOne
+	@JsonIgnore
 	private Entreprise entrprise;
 	@ManyToOne
 	private Employe chef_de_projet;

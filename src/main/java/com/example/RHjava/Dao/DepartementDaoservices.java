@@ -10,9 +10,10 @@ import com.example.RHjava.persist.Departement;
 import com.example.RHjava.persist.Employe;
 
 public interface DepartementDaoservices {
-public Integer ajouterdepartement(Departement departement) ;
+public long ajouterdepartement(Departement departement) ;
 public  Departement finddep(Long iddep );
-public List<Departement> getalldepartement();
+public List<Departement> getalldepartement(long identrep);
 public void deletedepartement (Long iddep);
 public ResponseEntity<Object> addChef (Long idemp,Long iddep);
+public ResponseEntity<Object> addentrep (Long identrep,Long iddep);
 }

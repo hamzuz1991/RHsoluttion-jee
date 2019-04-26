@@ -2,6 +2,9 @@ package com.example.RHjava.controlleur;
 
 
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Query;
 import javax.validation.Valid;
 
@@ -38,10 +41,11 @@ DepartementDaoservices depdao;
 		
 		return entDao.findentreprise(identrep);
 	}
-	@PutMapping("/adddep/{identrep}/{iddep}")
-	public void addDepartement(@PathVariable(value = "identrep") Long identrep,@PathVariable(value = "iddep") Long iddep) {
-	Departement departement =	depdao.finddep(iddep);
-		Entreprise entreprise = entDao.findentreprise(identrep);
-		entreprise.adddepartement(departement);
+	
+	@GetMapping("/getallentreprise")
+	public List<Entreprise> getall() {
+		
+		return entDao.findallentreprise();
 	}
+	
 }

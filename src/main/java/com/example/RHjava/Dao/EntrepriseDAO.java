@@ -1,6 +1,8 @@
 package com.example.RHjava.Dao;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.Query;
 
@@ -27,6 +29,12 @@ public class EntrepriseDAO implements EntrepriseDAoservices {
 	public Entreprise findentreprise(Long identrep) {
 		// TODO Auto-generated method stub
 		return entrepriserepostry.findByidentrep(identrep);
+	}
+
+	@Override
+	public List<Entreprise> findallentreprise() {
+	
+		return entrepriserepostry.findAll();
 	}
 
 }

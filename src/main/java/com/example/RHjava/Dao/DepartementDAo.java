@@ -12,6 +12,7 @@ import com.example.RHjava.persist.Employe;
 import com.example.RHjava.persist.Entreprise;
 import com.example.RHjava.repostry.Departementrepostery;
 import com.example.RHjava.repostry.Employerrepostry;
+import com.example.RHjava.repostry.Entrepriserepostry;
 
 @Service
 public class DepartementDAo implements DepartementDaoservices {
@@ -20,21 +21,19 @@ public class DepartementDAo implements DepartementDaoservices {
 	Departementrepostery departementrepostery;
 	@Autowired
     Employerrepostry emprep ;
+	@Autowired
+    Entrepriserepostry emtrep ;
 	@Override
-	public Integer ajouterdepartement(Departement departement) {
-		departementrepostery.save(departement);
-		return null;
+	public long ajouterdepartement(Departement departement) {
+		 	departementrepostery.save(departement);
+		 	return departement.getId_dep() ;
 	}
 
 	
 	
 	
 
-	@Override
-	public List<Departement> getalldepartement() {
-		return departementrepostery.findAll();
-
-	}
+	
 
 	@Override
 	public void deletedepartement(Long iddep) {
@@ -69,6 +68,40 @@ public class DepartementDAo implements DepartementDaoservices {
 		employe.get().setChef_dep(departement.get());
 		emprep.save(employe.get());
 		return ResponseEntity.noContent().build();
+	}
+
+
+
+
+
+
+
+	@Override
+	public List<Departement> getalldepartement(long identrep) {
+		return departementrepostery.findByidentrep(identrep);
+		
+	}
+
+
+
+
+
+
+
+	@Override
+	public ResponseEntity<Object> addentrep(Long identrep, Long iddep) {
+		Optional<Departement> departement =	departementrepostery.findById(iddep);
+		Optional<Entreprise> entrep = emtrep.findById(identrep);
+		if((!departement.isPresent())||(!entrep.isPresent())) {
+			return ResponseEntity.notFound().build();
+		}
+		
+				departement.get().setEntrprise(entrep.get());
+		departementrepostery.save(departement.get());
+		entrep.get().adddepartement(departement.get());;
+		emtrep.save(entrep.get());
+		return ResponseEntity.noContent().build();
+	
 	}
 
 

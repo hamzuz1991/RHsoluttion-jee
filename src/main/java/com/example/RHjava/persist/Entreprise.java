@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "t_entrep")
 @EntityListeners(AuditingEntityListener.class)
@@ -39,6 +41,7 @@ public class Entreprise implements Serializable {
 	private String raison_social;
 
 	@OneToMany(mappedBy = "entrprise", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	@JsonIgnore
 	private List<Departement> departements;
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private Employe directeur_generale;

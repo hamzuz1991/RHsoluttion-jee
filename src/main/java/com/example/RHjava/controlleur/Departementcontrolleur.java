@@ -1,5 +1,6 @@
 package com.example.RHjava.controlleur;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import com.example.RHjava.Dao.DepartementDaoservices;
 import com.example.RHjava.Dao.EmployerDaoservices;
 import com.example.RHjava.persist.Departement;
 import com.example.RHjava.persist.Employe;
+import com.example.RHjava.persist.Entreprise;
 
 @RestController
 @RequestMapping("/departement")
@@ -35,6 +37,7 @@ public class Departementcontrolleur {
 	@PostMapping("/ajoute")
 	public Long ajouterDepartement(@Valid @RequestBody Departement departement) {
 		depaertemenrDao.ajouterdepartement(departement);
+		
 		return departement.getId_dep();
 
 	}
@@ -44,12 +47,21 @@ public class Departementcontrolleur {
 		return depaertemenrDao.finddep(iddep);
 	}
 
-
+	@GetMapping("/getalldep/{identrep}")
+	public List<Departement> getalldep(@PathVariable(value = "identrep") long identrep) {
+		return depaertemenrDao.getalldepartement(identrep);
+	}
 			
 	@PutMapping("/addchef/{idemp}/{iddep}")
 	public void addchefDepartement(@PathVariable(value = "idemp") Long idemp,
 			@PathVariable(value = "iddep") Long iddep) {
 depaertemenrDao.addChef(idemp, iddep); 
 		
+	}
+	
+
+	@PutMapping("/adddep/{identrep}/{iddep}")
+	public void addDepartement(@PathVariable(value = "identrep") Long identrep,@PathVariable(value = "iddep") Long iddep) {
+depaertemenrDao.addentrep(identrep, iddep);
 	}
 }
